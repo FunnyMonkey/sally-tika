@@ -1,0 +1,72 @@
+<html>
+<head>
+  <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.theme.min.css">
+  <script type="text/javascript" src="/static/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
+  <title>Sally Content Extractor</title>
+</head>
+<body>
+  <div id="content">
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        <li class="active"><a href="#meta" data-toggle="tab">Meta</a></li>
+        <li><a href="#html" data-toggle="tab">HTML</a></li>
+        <li><a href="#plaintext" data-toggle="tab">Text</a></li>
+        <li><a href="#cleantext" data-toggle="tab">Cleaned Text</a><li>
+        <li><a href="#binaries" data-toggle="tab">Files</a></li>
+        <li><a href="#errs" data-toggle="tab">Errors</a></li>
+    </ul>
+
+    <div id="my-tab-content" class="tab-content">
+      <div class="tab-pane active" id="meta">
+        <h1>Meta</h1>
+        <div>
+          <dl>
+            {{ range $index, $element := .Meta}}
+              <dt>{{$index}}</dt>
+              <dd>{{$element}}</dd>
+            {{end}}
+          </dl>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="html">
+        <h1>HTML</h1>
+        <div><pre>{{.Html}}</pre></div>
+      </div>
+
+      <div class="tab-pane" id="plaintext">
+        <h1>Text</h1>
+        <div><pre>{{.Text}}</pre></div>
+
+      </div>
+
+      <div class="tab-pane" id="cleantext">
+        <h1>Cleaned Text</h1>
+        <div><pre>{{.Cleaned}}</pre></div>
+      </div>
+
+      <div class="tab-pane" id="binaries">
+        <h1>Files</h1>
+        <ul>
+        {{range .Files}}
+          <li><a href="{{.}}">{{.}}</a></li>
+        {{end}}
+        </ul>
+      </div>
+
+      <div class="tab-pane" id="errs">
+        <h1>Errors</h1>
+        <div class="error">{{.Error}}</div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('#tabs').tab();
+        });
+    </script>
+  </div>
+</body>
+</html>
+
